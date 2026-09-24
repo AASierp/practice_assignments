@@ -1,4 +1,4 @@
-import type { Course } from "../data/courses"
+import type { Course } from "../types/course"
 import CourseCard from "./CourseCard"
 
 type CourseListProps = {
@@ -9,10 +9,10 @@ type CourseListProps = {
 
 export function CourseList({ courses, selectCourse }: CourseListProps){
     return(
-        <>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {courses.map((course) => {
             return(
-                <div className="course-container" key={course.id}>
+                <div key={course.id}>
                     <CourseCard 
                         selectCourse = {() => {selectCourse(course)}}
                         featured = {course.level === "Advanced"}
@@ -23,8 +23,6 @@ export function CourseList({ courses, selectCourse }: CourseListProps){
                     />
                 </div>
             )})}
-        </>
-
-        
+        </div>  
     )
 }

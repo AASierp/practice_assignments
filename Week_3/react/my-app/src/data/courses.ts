@@ -1,10 +1,14 @@
-export type Course = {
-    id: number,
-    title: string,
-    description: string,
-    duration: string,
-    level: string
-}
+import type { Course } from "../types/course"
+import type { RemoteCourse } from "../types/course"
+
+
+// export type Course = {
+//     id: number,
+//     title: string,
+//     description: string,
+//     duration: string,
+//     level: string
+// }
 
 
 export const courses: Course[] = [
@@ -31,3 +35,54 @@ export const courses: Course[] = [
     }
 ]
 
+export const remoteCourse: RemoteCourse[] = [
+  {
+    courseId: 11,
+    name: "AST 101",
+    summary: "Intro to Astronomy",
+    weeks: 6,
+    difficulty: "Beginner"
+  },
+  {
+  courseId: 12,
+  name: "BIO 110",
+  summary: "Introduction to Biology",
+  weeks: 8,
+  difficulty: "Intermediate"
+ },
+ {
+  courseId: 13,
+  name: "CHEM 120",
+  summary: "Foundations of General Chemistry",
+  weeks: 10,
+  difficulty: "Intermediate"
+ },
+ {
+  courseId: 14,
+  name: "HIST 210",
+  summary: "Survey of Modern World History",
+  weeks: 8,
+  difficulty: "Beginner"
+ },
+ {
+  courseId: 15,
+  name: "PHYS 301",
+  summary: "Introduction to Classical Mechanics",
+  weeks: 12,
+  difficulty: "Advanced"
+ }
+]
+
+function courseMapper(remote: RemoteCourse): Course{
+    const mappedCourse: Course = {
+        id: remote.courseId,
+        title: remote.name,
+        description: remote.summary,
+        duration: `${remote.weeks} weeks`,
+        level: remote.difficulty
+    }
+
+    return mappedCourse
+}
+
+export const convertedCourses = remoteCourse.map((course) => courseMapper(course));

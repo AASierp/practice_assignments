@@ -4,6 +4,8 @@ export type EnrollmentStatus = "Enrolled" | "Not Enrolled"
 
 export type RequestStatus = "Idle" | "Loading" | "Success" | "Error"
 
+export type LevelFilter = CourseLevel | "All Levels"
+
 export type Course = {
     id: number,
     title: string,
@@ -14,5 +16,9 @@ export type Course = {
 }
 
 export type RemoteCourse = {
-    
+    courseId: number,
+    name: string,
+    summary: string,
+    weeks: number
+    difficulty: CourseLevel
 }

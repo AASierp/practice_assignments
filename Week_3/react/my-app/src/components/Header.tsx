@@ -1,13 +1,16 @@
-export default function Header(){
+type HeaderProps = {
+        dashTitle: string
+    }
 
+export default function Header( { dashTitle }: HeaderProps ){
 
 
     return(
-        <div className="header">
-            <header>
-                <h1>This is a heading</h1>
+        <div className="text-center">
+            <header className="w-full">
+                <h1>{dashTitle}</h1>
                 <nav>
-                    <ul className="nav-link-container">
+                    <ul className="flex justify-around text-white">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#courses">Courses</a></li>
