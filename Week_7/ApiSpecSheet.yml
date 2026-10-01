@@ -1,0 +1,67 @@
+openapi: 3.0.0
+
+info:
+  title: Repair Ticket Manager API
+  version: 1.0.0
+
+paths:
+  /repairtickets:
+    get:
+      summary: Get All Tickets
+      responses:
+        '200':
+          description: Tickets retrieved successfully
+
+    post:
+      summary: Create a new Ticket
+      responses:
+        '201':
+          description: Ticket created successfully
+        '400':
+          description: Invalid ticket data
+
+  /repairtickets/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: 
+          type: integer
+
+
+    patch:
+      summary: Update an Existing Ticket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                priority:
+                  type: string
+                status:
+                  type: string
+                technicianId:
+                  type: integer
+      responses:
+        '200':
+          description: Ticket updated successfully
+        '400':
+          description: Invalid ticket data
+        '404':
+          description: Ticket not found
+        '409':
+          description: Update conflicts with current ticket state
+    
+    get:
+      summary: Get a single ticket
+      responses:
+        '200':
+          description: Ticket retrieved successfully
+        '404':
+          description: Ticket not found

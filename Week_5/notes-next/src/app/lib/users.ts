@@ -1,8 +1,10 @@
 import type { User, NewUser } from "@/types/types";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
 export async function getUsers(): Promise<User[]>{
 
-    const response = await fetch("http://localhost:3001/users")
+    const response = await fetch(`${API_URL}/users`)
 
     if(!response.ok){
         throw new Error("Could not fetch users.");
@@ -14,7 +16,7 @@ export async function getUsers(): Promise<User[]>{
 
 export async function createUser(user: NewUser): Promise<NewUser>{
 
-    const response = await fetch("http://localhost:3001/users", {
+    const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(user)
@@ -27,7 +29,7 @@ export async function createUser(user: NewUser): Promise<NewUser>{
 }
 
 export async function updateUser(user: User): Promise<User>{
-    const response = await fetch(`http://localhost:3001/users/${user.id}`, {
+    const response = await fetch(`${API_URL}/users/${user.id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(user)
@@ -42,7 +44,7 @@ export async function updateUser(user: User): Promise<User>{
 
 export async function deleteUser(userId: number): Promise<void>{
 
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`${API_URL}/users/${userId}`, {
         method: "DELETE"
     })
 
