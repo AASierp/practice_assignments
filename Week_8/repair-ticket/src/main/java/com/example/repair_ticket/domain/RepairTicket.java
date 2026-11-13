@@ -1,4 +1,5 @@
 package com.example.repair_ticket.domain;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -6,9 +7,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class RepairTicket {
@@ -17,7 +21,7 @@ public class RepairTicket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ticketId;
+    private Integer ticketId;
     private String title;
     private String description;
     @Enumerated(EnumType.STRING)
@@ -26,10 +30,12 @@ public class RepairTicket {
     private TicketPriority priority;
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
-    @ManyToOne 
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Requester requester;
-    @ManyToOne 
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Technician technician;
+    @Transient
+    @JsonIgnore  
     private List<String> notes = new ArrayList<>() {
         
     };
@@ -38,7 +44,7 @@ public class RepairTicket {
 
     public RepairTicket(){}
     
-    public RepairTicket(int ticketId, 
+    public RepairTicket(Integer ticketId, 
                         String title, 
                         String description, 
                         TicketCategory category, 
@@ -47,10 +53,6 @@ public class RepairTicket {
                         Requester requester,
                         Technician technician,
                         List<String> notes) {
-        
-        if(ticketId <= 0){
-            throw new IllegalArgumentException("Id must be a positive number.");
-        }
 
         if(title == null || title.isBlank()){
             throw new IllegalArgumentException("You must provide a title");
@@ -80,12 +82,12 @@ public class RepairTicket {
         this.status = status;
         this.requester = requester;
         this.technician = technician;
-        this.notes = new ArrayList<>(notes);
+        this.notes = notes == null ? new ArrayList<>() : new ArrayList<>(notes);
     }
 
     //GETTERS
 
-    public int getTicketId(){
+    public Integer getTicketId(){
         return ticketId;
     }
 

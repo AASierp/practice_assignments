@@ -7,22 +7,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity 
 public class Technician {
     
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int employeeId;
+    private Integer employeeId;
     private String firstName;
     private String lastName;
     private String email;
-    @JsonIgnore 
+    @JsonIgnore
+    @Transient  
     private List<RepairTicket> tickets = new ArrayList<>();
 
     public Technician(){}
 
-    public Technician(int employeeId,
+    public Technician(Integer employeeId,
              String firstName, 
              String lastName, 
              String email,
@@ -35,7 +37,7 @@ public class Technician {
         this.tickets = tickets;
     }
 
-    public int getEmployeeId(){
+    public Integer getEmployeeId(){
         return employeeId;
     }
 

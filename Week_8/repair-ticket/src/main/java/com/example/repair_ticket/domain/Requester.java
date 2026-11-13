@@ -10,21 +10,21 @@ public class Requester {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private int id;
+    private Integer id;
     private String firstName;
     private  String lastName;
     private String email;
 
     public Requester(){}
 
-    public Requester(int id, String first_name, String last_name, String email) {
+    public Requester(Integer id, String first_name, String last_name, String email) {
         this.id = id;
         this.firstName = first_name;
         this.lastName = last_name;
         this.email = email;
     }
 
-    public int getRequesterId(){
+    public Integer getRequesterId(){
         return id;
     }
 

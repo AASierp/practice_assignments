@@ -50,10 +50,28 @@ For example:
 
 Explain whether the issue happened in the application layer or the database layer.
 
+While attempting to POST a new repairTicket, I encountered this "TransientPropertyValueException" execption at one points. The db seemed to be fine, the issue was that I was trying to reference a requester (and a technician really) that did not exist yet. The solution I used was to add cascading to those fields. This allows hibernate to create those table entries automatically. I would prefer to add requesters and technicians through their own POST endpoints eventually. The down side to cascading is that if a requester has multiple tickets it will create a new entry with a new id in the requester/technician table everytime you make a new ticket. Which, I feel, is a violation of normalization.
+
 ## Focused Questions
 
 1. What role does PostgreSQL play in the application?
+
+    Postgres is the actual DB, it creates, stores and serves the contents of the tables.
+
 2. Which configuration values should come from the environment?
+
+    Ideally you should obfuscate passwords, user names, endpoints and any other sercrets(keys for example).
+    
 3. How did you verify that application data was saved?
+
+    I viewed the tables and their content through DBeaver. Although, I could have done GET through swagger as well.
+
 4. What database table changed when you used the API?
+
+    The repair_ticket table, the requester table and the techician table all changed.
+    This was due to the use of cascading on the technician and requester fields in the 
+    repairTicket class.
+
 5. How can you tell whether a bug is in the application layer or database layer?
+
+    Mainly by carefully reading the logs and see what the error is and where it occurs.
